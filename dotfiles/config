@@ -1,0 +1,43 @@
+#ControlMaster auto
+#ControlPath   /Users/agrimaldi/.ssh/tmp/%h_%p_%r
+
+Host sd-54065.org
+    HostName        62.210.198.152
+    Port            25822
+    User            agrimaldi
+
+Host node-head1.molbio.int
+    Hostname        node-head1.molbio.int
+    Port            22
+    User            agrimal
+
+Host rgbackup
+    Hostname        10.84.50.243
+    Port            22
+    User            agrimaldi
+
+Host 10.84.50.243
+    Hostname        10.84.50.243
+    Port            22
+    IdentityFile    ~/.ssh/rg-gitlab.id_rsa
+
+Host trigger2.mnhn.fr
+    ProxyCommand    ssh -q sd-54065.org nc -q0 %h 22
+    User            agrimaldi
+
+Host trigger1.mnhn.fr
+    ProxyCommand    ssh -q trigger2.mnhn.fr nc -q0 %h 22
+    User            agrimaldi
+
+Host rddm501agr.mnhn.fr
+    ProxyCommand    ssh -q trigger2.mnhn.fr nc -q0 %h 22
+    User            agrimaldi
+
+Host tunnel-jnomes
+    ProxyCommand    ssh -q trigger2.mnhn.fr nc -q0 %h 22
+    LocalForward    3001 rddm501agr.mnhn.fr:3000
+    User            agrimaldi
+
+Host github.com
+    Hostname        github.com
+    IdentityFile    ~/.ssh/github.id_rsa
