@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 CWD=$(pwd)
-LN="ln -s -f"
+CP="cp -f"
 
-echo "Linking ssh config file"
-${LN} ${CWD}/dotfiles/sshconfig ~/.ssh/config
+echo "Copying ssh config file"
+${CP} ${CWD}/dotfiles/sshconfig ~/.ssh/config
 
-echo "Linking git config file"
-${LN} ${CWD}/dotfiles/gitconfig ~/.gitconfig
+echo "Copying git config file"
+${CP} ${CWD}/dotfiles/gitconfig ~/.gitconfig
