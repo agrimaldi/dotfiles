@@ -2,9 +2,8 @@
 
 CWD=$(pwd)
 
-for dotfile in ./dotfiles/*
-do
-    dotfname=${dotfile##*/}
-    echo "Linking ${dotfname}"
-    ln -s "$CWD/dotfiles/${dotfname}" ~/."${dotfname}"
-done
+echo "Linking ssh config file"
+ln -s ${CWD}/dotfiles/sshconfig ~/.ssh/config
+
+echo "Linking git config file"
+ln -s ${CWD}/dotfiles/gitconfig ~/.gitconfig
