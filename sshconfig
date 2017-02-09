@@ -1,28 +1,96 @@
 #ControlMaster auto
 #ControlPath   /Users/agrimaldi/.ssh/tmp/%h_%p_%r
 
-Host sd-54065.org
+
+####################################
+#               Perso              #
+####################################
+
+Host sd-54065.dedibox.fr
     HostName        62.210.198.152
     Port            25822
     User            agrimaldi
 
+Host sd-104034.dedibox.fr
+    HostName        163.172.59.8
+    Port            22
+    User            grimwald
+    IdentityFile    ~/.ssh/id_rsa.sd-104034
+
+
+Host muninn.local
+    HostName        192.168.1.8
+    Port            25822
+    User            root
+    IdentityFile    ~/.ssh/muninn.id_rsa
+
+Host muninn.chroot
+    HostName        192.168.1.8
+    Port            25823
+    User            root
+    IdentityFile    ~/.ssh/muninn.id_rsa
+
+
+####################################
+#               MPI                #
+####################################
+
+Host login.gwdg.de
+    Hostname        login.gwdg.de
+    Port            22
+    User            agrimal
+    IdentityFile    ~/.ssh/login.gwdg.id_rsa
+
+Host node-head1.login.gwdg.de
+    Hostname        134.107.223.145
+    ProxyCommand    ssh -q login.gwdg.de nc -q0 %h 22
+    User            agrimal
+    IdentityFile    ~/.ssh/id_rsa.node_head
+
 Host node-head1.molbio.int
+    #Hostname        10.84.28.20
     Hostname        node-head1.molbio.int
     Port            22
     User            agrimal
+    IdentityFile    ~/.ssh/id_rsa.node_head
+    Compression     yes
+    ForwardX11      yes
+    ForwardX11Trusted yes
 
 Host rgbackup
-    Hostname        10.84.50.243
+    Hostname        10.84.6.92
     Port            22
     User            agrimaldi
 
-Host 10.84.50.243
-    Hostname        10.84.50.243
+Host rg-rpi.molbio.int
+    Hostname        10.84.50.10
     Port            22
+    User            pi
+
+Host gitlab.rg-rpi.molbio.int
+    Hostname        10.84.50.10
+    Port            22
+    User            git
     IdentityFile    ~/.ssh/rg-gitlab.id_rsa
 
+Host macroserver.molbio.int
+    Hostname        10.84.50.12
+    Port            22
+    User            rgadmin
+
+Host gitlab.macroserver.molbio.int 10.84.50.12
+    Hostname        10.84.50.12
+    Port            22
+    User            git
+    IdentityFile    ~/.ssh/rg-gitlab.id_rsa
+
+
+####################################
+#                MNHN              #
+####################################
+
 Host trigger2.mnhn.fr
-    ProxyCommand    ssh -q sd-54065.org nc -q0 %h 22
+    ProxyCommand    ssh -q sd-54065.dedibox.fr nc -q0 %h 22
     User            agrimaldi
 
 Host trigger1.mnhn.fr
@@ -38,6 +106,18 @@ Host tunnel-jnomes
     LocalForward    3001 rddm501agr.mnhn.fr:3000
     User            agrimaldi
 
+
+####################################
+#           Third Parties          #
+####################################
+
 Host github.com
     Hostname        github.com
     IdentityFile    ~/.ssh/github.id_rsa
+
+Host bitbucket.org
+    User hg
+    Hostname bitbucket.org
+    PreferredAuthentications publickey
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/bitbucket.id_rsa
