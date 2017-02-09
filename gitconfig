@@ -9,7 +9,40 @@
     lg = !"git lg1"
     co = checkout
     st = status
+    df = diff
+    ds = diff --staged
+    watch = "!clear; \
+        git status; \
+        git --no-pager diff --shortstat; \
+        fswatch -or \
+        --exclude '.git' \
+        --include '.git/index$' \
+        --event Updated \
+        --event Renamed \
+        --event Created \
+        --event Removed . | \
+        while read event; do \
+            clear; \
+            git status; \
+            git --no-pager diff --shortstat; \
+        done;"
+    diffwatch = "!clear; \
+        git status; \
+        git --no-pager diff; \
+        fswatch -or \
+        --exclude '.git' \
+        --include '.git/index$' \
+        --event Updated \
+        --event Renamed \
+        --event Created \
+        --event Removed . | \
+        while read event; do \
+            clear; \
+            git status; \
+            git --no-pager diff; \
+        done;"
 [core]
 	editor = vim
+	excludesfile = /Users/agrimaldi/.gitignore
 [merge]
 	tool = vimdiff
