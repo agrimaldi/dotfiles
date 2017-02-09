@@ -1,3 +1,8 @@
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+    curl -sL zplug.sh/installer | zsh
+fi
+
 source ~/.zplug/init.zsh
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
