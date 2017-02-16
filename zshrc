@@ -9,15 +9,13 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, use:"*darwin*amd64*"
+# zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, use:"*darwin*amd64*"
 # zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 # zplug "junegunn/fzf", use:"shell/key-bindings.zsh"
 zplug "junegunn/fzf", use:"shell/completion.zsh"
 zplug "zsh-users/zsh-completions", use:src
 zplug "zsh-users/zsh-autosuggestions"
 zplug "mollifier/anyframe"
-
-# zplug "modules/prompt", from:prezto
 
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
@@ -76,8 +74,15 @@ bindkey '^xi' anyframe-widget-put-history
 bindkey '^x^i' anyframe-widget-put-history
 bindkey '^xk' anyframe-widget-kill
 bindkey '^x^k' anyframe-widget-kill
-bindkey '^xe' anyframe-widget-insert-git-branch
-bindkey '^x^e' anyframe-widget-insert-git-branch
+# bindkey '^xe' anyframe-widget-insert-git-branch
+# bindkey '^x^e' anyframe-widget-insert-git-branch
 
 
-source ~/.zplug/init.zsh
+autoload -U edit-command-line
+# Emacs style
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
+# Vi style:
+# zle -N edit-command-line
+# bindkey -M vicmd v edit-command-line
