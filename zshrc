@@ -19,7 +19,15 @@ zplug "mollifier/anyframe"
 
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+
+# POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+# POWERLEVEL9K_SHORTEN_DELIMITER=""
+# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+# zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+
+PROMPT_GEOMETRY_COLORIZE_SYMBOL=true
+PROMPT_GEOMETRY_EXEC_TIME=true
+zplug "frmendes/geometry"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -58,6 +66,7 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 
 ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
@@ -86,3 +95,5 @@ bindkey '^x^e' edit-command-line
 # Vi style:
 # zle -N edit-command-line
 # bindkey -M vicmd v edit-command-line
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
